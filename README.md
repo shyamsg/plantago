@@ -1,2 +1,2 @@
 # Global plantago project
-Plantago code and analysis
+Code and analysis for the plantago global biogeography project. 
