@@ -38,8 +38,8 @@ for K in {2..12}; do
   mkdir -p K$K && cd K$K
   echo "#! /bin/bash
     rep=\$SLURM_ARRAY_TASK_ID
-    ~/.local/bin/ngsadmix -likes $DATA/PmajorNoBlanks_6Discarded_c50.beagle.gz -K $K -outfiles PmajorNoBlanks_6Discarded_c50.K$K.rep\$rep -seed \$RANDOM -P 4 -maxiter 10000 -minMaf 0.01 -minInd $((NIND*50/100)) 
-" \| xsbatch -D `pwd` --time=12:00:00 -c 4 --mem-per-cpu=3000 -J Ptago.K$K --array=${startrep}-${endrep}%5
+    /groups/hologenomics/software/ngsTools/ngsAdmix/ngsAdmix -likes $DATA/PmajorNoBlanks_6Discarded_c50.beagle.gz -K $K -outfiles PmajorNoBlanks_6Discarded_c50.K$K.rep\$rep -seed \$RANDOM -P 4 -maxiter 10000 -minMaf 0.01 -minInd $((NIND*50/100)) 
+" \| sbatch -D `pwd` --time=12:00:00 -c 4 --mem-per-cpu=3000 -J Ptago.K$K --array=${startrep}-${endrep}%5
   sleep 10
   cd $ADMIX
 done
@@ -72,5 +72,5 @@ while read line; do echo $(basename $line .plantago_20samples.realigned.bam); do
 if [ ! -e PmajorNoBlanks_6Discarded_c50_minmaf10.dist ]; then
  echo "#! /bin/bash
   ~/.local/bin/ngsDist --geno $DATA/PmajorNoBlanks_6Discarded_c50_minmaf10.glf --probs --log_scale --n_ind 385 --n_sites 2807 --labels sampleLabels_6Discarded.txt --pairwise_del --avg_nuc_dist --n_boot_rep 100 --out PmajorNoBlanks_6Discarded.dist --n_threads 4
-"| sbatch -D `pwd` --time=4:00:00 -c 4 --mem-per-cpu=10gb -J ptago.dist
+" \| sbatch -D `pwd` --time=4:00:00 -c 4 --mem-per-cpu=10gb -J ptago.dist
 fi
