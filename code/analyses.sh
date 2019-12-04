@@ -1,7 +1,10 @@
 #! /bin/bash
 
+## this is the root directory of your project - change it to reflect that. 
 PROJECT=/home/people/shygop/projects/plantago
+## this folder is where you beagle file is located - change it to reflect that.
 DATA=$PROJECT/data
+## the next 2 folders are created by the script, so no worries if they are not there yet. 
 ADMIX=$PROJECT/ngsadmix
 MDS=$PROJECT/mds
 # Do the admixture analysis
